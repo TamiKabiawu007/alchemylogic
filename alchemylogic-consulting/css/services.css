@@ -1,0 +1,131 @@
+/*=========================================
+  Services Page Styles (services.html)
+=========================================*/
+
+/* Service Intro */
+.services-intro {
+  padding-block: 4rem 2rem;
+}
+
+/* Service Detail Sections */
+.service-detail {
+  padding-block: 4rem;
+}
+.service-detail.alt-bg {
+  background-color: var(--color-light);
+}
+
+.two-column-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(320px, 1fr));
+  gap: 2.5rem;
+  align-items: center;
+}
+.two-column-grid.reversed {
+  direction: rtl;
+}
+.two-column-grid.reversed > * {
+  direction: ltr;
+}
+.column-image img {
+  border-radius: 8px;
+  box-shadow: 0 6px 18px rgba(0,0,0,0.1);
+}
+
+.service-icon {
+  font-size: 2.5rem;
+  color: var(--color-accent);
+  margin-bottom: 1rem;
+}
+
+.service-detail h2 {
+  margin-bottom: 0.75rem;
+  color: var(--color-primary);
+}
+
+.service-features {
+  list-style: none;
+  padding: 0;
+  margin: 1.25rem 0 2rem;
+}
+.service-features li {
+  position: relative;
+  padding-left: 1.5rem;
+  margin-bottom: 0.5rem;
+  color: var(--color-medium);
+}
+.service-features li::before {
+  content: "\f058"; /* FontAwesome check-circle */
+  font-family: "Font Awesome 6 Free";
+  font-weight: 900;
+  position: absolute;
+  left: 0;
+  top: 0.1rem;
+  color: var(--color-accent);
+}
+
+/* Approach Steps */
+.service-approach {
+  background-color: var(--color-primary);
+  color: var(--color-white);
+  padding-block: 4rem;
+}
+.approach-steps {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+  gap: 2rem;
+  counter-reset: step;
+}
+.approach-step {
+  background-color: rgba(255,255,255,0.1);
+  padding: 2rem 1.5rem;
+  border-radius: 8px;
+  position: relative;
+  text-align: center;
+}
+.step-number {
+  font-family: var(--font-heading);
+  font-size: 2rem;
+  font-weight: 700;
+  width: 48px;
+  height: 48px;
+  border-radius: 50%;
+  background-color: var(--color-accent);
+  color: var(--color-black);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  margin-inline: auto 0;
+  margin-bottom: 0.75rem;
+}
+.approach-step h3 {
+  color: var(--color-white);
+  margin-bottom: 0.5rem;
+}
+
+/* Industries Grid */
+.industries-section {
+  padding-block: 4rem;
+}
+.industries-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
+  gap: 2rem;
+}
+.industry-card {
+  background-color: var(--color-white);
+  border: 1px solid var(--color-light);
+  border-radius: 8px;
+  padding: 2rem 1.5rem;
+  text-align: center;
+  transition: transform var(--transition-fast), box-shadow var(--transition-fast);
+}
+.industry-card:hover {
+  transform: translateY(-6px);
+  box-shadow: 0 8px 16px rgba(0,0,0,0.08);
+}
+.industry-icon {
+  font-size: 2rem;
+  color: var(--color-accent);
+  margin-bottom: 1rem;
+}
