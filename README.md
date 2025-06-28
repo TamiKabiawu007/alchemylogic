@@ -3,7 +3,6 @@
 A modern, responsive website for AlchemyLogic, a strategic business consulting firm. This project showcases the company's services, about section, and contact information with a clean, professional design.
 
 ## 🚀 Features
-
 - **Responsive Design**: Looks great on all devices
 - **Modern UI**: Clean and professional interface
 - **Performance Optimized**: Fast loading times
