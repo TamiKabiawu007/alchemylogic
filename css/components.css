@@ -1,0 +1,165 @@
+/* Components: Hero, Cards, Glassmorphism, Toggles, Page Transitions */
+
+/* Hero with animated gradient and floating shapes */
+.hero-modern {
+  position: relative;
+  min-height: 72vh;
+  display: grid;
+  place-items: center;
+  padding: 6rem 1rem 4rem;
+  overflow: hidden;
+  background: radial-gradient(1200px 600px at 10% 10%, rgba(59,130,246,0.25), transparent 60%),
+              radial-gradient(1000px 600px at 90% 10%, rgba(16,185,129,0.18), transparent 60%),
+              linear-gradient(180deg, var(--color-surface), var(--color-bg));
+}
+
+.hero-gradient {
+  position: absolute;
+  inset: -20% -10% -20% -10%;
+  background: conic-gradient(from 0deg at 50% 50%, rgba(59,130,246,0.15), rgba(16,185,129,0.15), rgba(59,130,246,0.15));
+  filter: blur(60px);
+  animation: spinSlow 18s linear infinite;
+}
+
+@keyframes spinSlow {
+  to { transform: rotate(360deg); }
+}
+
+.hero-inner {
+  position: relative;
+  z-index: 1;
+  width: min(100%, 1000px);
+  text-align: center;
+}
+
+.hero-title {
+  font-family: var(--font-heading);
+  font-weight: 700;
+  font-size: clamp(2rem, 5vw, 3rem);
+  color: var(--color-primary);
+  letter-spacing: -0.02em;
+}
+
+.hero-subtitle {
+  margin-top: 0.75rem;
+  color: var(--color-text-light);
+  font-size: clamp(1rem, 2vw, 1.25rem);
+}
+
+.hero-ctas {
+  display: flex;
+  justify-content: center;
+  gap: 0.75rem;
+  margin-top: 1.5rem;
+}
+
+/* Floating geometric shapes */
+.float-shape {
+  position: absolute;
+  width: 160px;
+  height: 160px;
+  border-radius: 24px;
+  background: linear-gradient(135deg, rgba(59,130,246,0.25), rgba(59,130,246,0.05));
+  border: 1px solid rgba(226,232,240,0.5);
+  filter: blur(0.5px);
+  animation: floatY 12s ease-in-out infinite;
+}
+
+.float-shape.circle {
+  border-radius: 50%;
+  background: linear-gradient(135deg, rgba(16,185,129,0.25), rgba(16,185,129,0.05));
+  animation-duration: 14s;
+}
+
+.float-shape.triangle {
+  clip-path: polygon(50% 0%, 0% 100%, 100% 100%);
+  background: linear-gradient(135deg, rgba(14,165,233,0.25), rgba(14,165,233,0.05));
+  animation-duration: 16s;
+}
+
+@keyframes floatY {
+  0%, 100% { transform: translateY(0) translateX(0) rotate(0deg); }
+  25% { transform: translateY(-18px) translateX(8px) rotate(3deg); }
+  50% { transform: translateY(0) translateX(0) rotate(0deg); }
+  75% { transform: translateY(12px) translateX(-8px) rotate(-2deg); }
+}
+
+/* Glassmorphism card */
+.card-glass {
+  position: relative;
+  background: rgba(255,255,255,0.6);
+  border: 1px solid rgba(226,232,240,0.6);
+  border-radius: 16px;
+  backdrop-filter: saturate(160%) blur(10px);
+  box-shadow: var(--shadow);
+  transition: transform .25s ease, box-shadow .25s ease, border-color .25s ease;
+}
+
+[data-theme="dark"] .card-glass {
+  background: rgba(15,23,42,0.55);
+  border-color: rgba(51,65,85,0.6);
+}
+
+.card-glass:hover {
+  transform: translateY(-6px);
+  box-shadow: var(--shadow-md);
+}
+
+/* Gradient border utility for cards */
+.gradient-border {
+  position: relative;
+  border-radius: 16px;
+}
+
+.gradient-border::before {
+  content: '';
+  position: absolute;
+  inset: 0;
+  padding: 1px;
+  border-radius: inherit;
+  background: linear-gradient(135deg, rgba(59,130,246,0.8), rgba(16,185,129,0.8));
+  -webkit-mask: linear-gradient(#fff 0 0) content-box, linear-gradient(#fff 0 0);
+  -webkit-mask-composite: xor;
+  mask-composite: exclude;
+  pointer-events: none;
+}
+
+/* Service card */
+.service-card-modern {
+  padding: 1.5rem;
+  display: grid;
+  gap: 0.5rem;
+  text-align: left;
+}
+
+.service-card-modern h3 {
+  margin: 0;
+  color: var(--color-primary);
+  font-size: 1.125rem;
+}
+
+.service-meta {
+  color: var(--color-text-light);
+  font-size: 0.95rem;
+}
+
+/* Toggle (theme) */
+.theme-toggle {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.5rem;
+  padding: 0.5rem 0.75rem;
+  border-radius: 999px;
+  background: var(--color-surface);
+  border: 1px solid var(--color-border);
+  color: var(--color-text);
+  cursor: pointer;
+}
+
+/* Page transition */
+.fade-enter { opacity: 0; }
+.fade-enter-active { opacity: 1; transition: opacity 250ms ease; }
+.fade-exit { opacity: 1; }
+.fade-exit-active { opacity: 0; transition: opacity 200ms ease; }
+
+

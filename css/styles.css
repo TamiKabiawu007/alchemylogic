@@ -5,32 +5,58 @@
 /*===============================
   Root + Global Reset Overrides
 ================================*/
+/* Design Tokens - Modern Palette + Typography */
 :root {
-  --color-bg: #FFFFFF;
-  --color-text: #1A1A1A;
-  --color-text-light: #666666;
-  --color-accent: #1A56DB;  /* Blue */
-  --color-accent-hover: #1E40AF;
-  --color-gold: #D4A017;     /* Gold */
-  --color-gold-hover: #B8860B;
-  --color-border: #E5E7EB;
-  --color-hover-bg: #F9FAFB;
-  
-  --font-heading: 'Montserrat', 'Inter', -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
-  --font-body: 'Inter', -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
-  --font-subheading: 'Inter', -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
-  
-  --shadow-sm: 0 1px 2px 0 rgba(0, 0, 0, 0.05);
-  --shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.1), 0 2px 4px -1px rgba(0, 0, 0, 0.06);
-  --shadow-md: 0 10px 15px -3px rgba(0, 0, 0, 0.1), 0 4px 6px -2px rgba(0, 0, 0, 0.05);
-  
+  /* Colors (Light Theme) */
+  --color-primary: #0F172A; /* Slate 900 */
+  --color-secondary: #1E293B; /* Slate 800 */
+  --color-accent: #3B82F6; /* Blue 500 */
+  --color-success: #10B981; /* Emerald 500 */
+  --color-bg: #F8FAFC; /* Slate 50 */
+  --color-surface: #FFFFFF;
+  --color-text: #334155; /* Slate 700 */
+  --color-text-light: #64748B; /* Slate 500 */
+  --color-border: #E2E8F0; /* Slate 200 */
+  --color-hover-bg: #F1F5F9; /* Slate 100 */
+  --color-white: #FFFFFF;
+  --color-black: #0B1220;
+  --color-dark: #0F172A;
+  --color-light: #E2E8F0;
+  --color-medium: #94A3B8;
+  --color-gold: #D4A017; /* legacy compat */
+  --color-gold-hover: #B8860B; /* legacy compat */
+  --color-accent-hover: #2563EB; /* Blue 600 */
+
+  /* Typography */
+  --font-heading: 'Inter', 'SF Pro Display', -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
+  --font-body: 'Inter', 'SF Pro Text', -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
+  --font-subheading: 'Inter', 'SF Pro Text', -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
+
+  /* Effects */
+  --shadow-sm: 0 1px 2px 0 rgba(2, 6, 23, 0.06);
+  --shadow: 0 4px 10px rgba(2, 6, 23, 0.08);
+  --shadow-md: 0 10px 25px rgba(2, 6, 23, 0.12);
+  --shadow-lg: 0 20px 40px rgba(2, 6, 23, 0.16);
+
+  /* Motion */
   --transition-fast: all 0.2s cubic-bezier(0.4, 0, 0.2, 1);
   --transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
   --transition-slow: all 0.5s cubic-bezier(0.4, 0, 0.2, 1);
-  
+
+  /* Layout */
   --max-width: 1200px;
-  --header-height: 80px;
-  --container-padding: 1.5rem;
+  --header-height: 72px;
+  --container-padding: 1.25rem;
+}
+
+/* Dark Theme */
+[data-theme="dark"] {
+  --color-bg: #0B1220;
+  --color-surface: #0F172A;
+  --color-text: #E2E8F0;
+  --color-text-light: #94A3B8;
+  --color-border: #1F2937;
+  --color-hover-bg: #111827;
 }
 
 /* Modern CSS Reset */

@@ -9,7 +9,8 @@ document.addEventListener('DOMContentLoaded', () => {
   const header = document.querySelector('.site-header');
   const menuToggle = document.querySelector('.menu-toggle');
   const mainNav = document.querySelector('.main-nav');
-  const backToTop = document.querySelector('.back-to-top');
+  const backToTop = document.getElementById('back-to-top') || document.querySelector('.back-to-top');
+  const themeToggle = document.getElementById('theme-toggle');
   const modal = document.getElementById('consultation-modal');
   const openModalButtons = document.querySelectorAll('[data-modal="consultation"]');
   const closeModalButtons = document.querySelectorAll('.close-modal, .close-modal-btn');
@@ -70,6 +71,28 @@ document.addEventListener('DOMContentLoaded', () => {
   };
   
   window.addEventListener('scroll', handleScroll, { passive: true });
+
+  // Theme Toggle
+  const root = document.documentElement;
+  const applyTheme = (mode) => {
+    if (mode === 'dark') {
+      root.setAttribute('data-theme', 'dark');
+    } else {
+      root.removeAttribute('data-theme');
+    }
+  };
+  const getPreferredTheme = () => {
+    const saved = localStorage.getItem('theme');
+    if (saved === 'dark' || saved === 'light') return saved;
+    return window.matchMedia && window.matchMedia('(prefers-color-scheme: dark)').matches ? 'dark' : 'light';
+  };
+  applyTheme(getPreferredTheme());
+  themeToggle?.addEventListener('click', () => {
+    const current = root.getAttribute('data-theme') === 'dark' ? 'dark' : 'light';
+    const next = current === 'dark' ? 'light' : 'dark';
+    localStorage.setItem('theme', next);
+    applyTheme(next);
+  });
 
   // Back to Top Button
   if (backToTop) {
