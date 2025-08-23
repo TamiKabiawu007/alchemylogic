@@ -10,7 +10,7 @@ document.addEventListener('DOMContentLoaded', () => {
   const menuToggle = document.querySelector('.menu-toggle');
   const mainNav = document.querySelector('.main-nav');
   const backToTop = document.getElementById('back-to-top') || document.querySelector('.back-to-top');
-  const themeToggle = document.getElementById('theme-toggle');
+  // Theme toggle removed (dark mode only)
   const modal = document.getElementById('consultation-modal');
   const openModalButtons = document.querySelectorAll('[data-modal="consultation"]');
   const closeModalButtons = document.querySelectorAll('.close-modal, .close-modal-btn');
@@ -72,27 +72,8 @@ document.addEventListener('DOMContentLoaded', () => {
   
   window.addEventListener('scroll', handleScroll, { passive: true });
 
-  // Theme Toggle
-  const root = document.documentElement;
-  const applyTheme = (mode) => {
-    if (mode === 'dark') {
-      root.setAttribute('data-theme', 'dark');
-    } else {
-      root.removeAttribute('data-theme');
-    }
-  };
-  const getPreferredTheme = () => {
-    const saved = localStorage.getItem('theme');
-    if (saved === 'dark' || saved === 'light') return saved;
-    return window.matchMedia && window.matchMedia('(prefers-color-scheme: dark)').matches ? 'dark' : 'light';
-  };
-  applyTheme(getPreferredTheme());
-  themeToggle?.addEventListener('click', () => {
-    const current = root.getAttribute('data-theme') === 'dark' ? 'dark' : 'light';
-    const next = current === 'dark' ? 'light' : 'dark';
-    localStorage.setItem('theme', next);
-    applyTheme(next);
-  });
+  // Force dark mode root attributes for consistency
+  document.documentElement.removeAttribute('data-theme');
 
   // Back to Top Button
   if (backToTop) {
@@ -270,4 +251,24 @@ document.addEventListener('DOMContentLoaded', () => {
   
   // Initialize animations
   animateOnScroll();
+
+  // Accordion logic (home services)
+  document.querySelectorAll('#home-services-accordion .accordion-item').forEach((item) => {
+    const trigger = item.querySelector('.accordion-trigger');
+    const content = item.querySelector('.accordion-content');
+    if (!trigger || !content) return;
+    trigger.addEventListener('click', () => {
+      const expanded = item.getAttribute('aria-expanded') === 'true';
+      // collapse all others (accordion behavior)
+      document.querySelectorAll('#home-services-accordion .accordion-item').forEach((el) => {
+        el.setAttribute('aria-expanded', 'false');
+        const t = el.querySelector('.accordion-trigger');
+        t?.setAttribute('aria-expanded', 'false');
+      });
+      if (!expanded) {
+        item.setAttribute('aria-expanded', 'true');
+        trigger.setAttribute('aria-expanded', 'true');
+      }
+    });
+  });
 });

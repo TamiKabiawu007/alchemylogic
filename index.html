@@ -4,7 +4,7 @@
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <meta name="description" content="Professional business consulting services to help your company grow and succeed">
-  <title>AlchemyLogic | Business Consulting</title>
+  <title>Alchemy Logic | Business Consulting</title>
   <link rel="stylesheet" href="css/normalize.css">
   <link rel="stylesheet" href="css/styles.css">
   <link rel="stylesheet" href="css/components.css">
@@ -37,7 +37,7 @@
     <div class="container">
         <div class="logo">
             <a href="index.html">
-                <span class="logo-text">Alchemy Logic Consulting</span>
+                <span class="logo-text">Alchemy Logic</span>
             </a>
         </div>
         <nav class="main-nav">
@@ -49,15 +49,10 @@
             <ul class="nav-list">
                 <li><a class="nav-link" href="index.html">Home</a></li>
                 <li><a class="nav-link" href="pages/services.html">Services</a></li>
-                <li><a class="nav-link" href="pages/consulting.html">Consulting</a></li>
                 <li><a class="nav-link" href="pages/about.html">About Us</a></li>
                 <li><a class="nav-link" href="pages/contact.html">Contact</a></li>
-                <li>
-                  <button id="theme-toggle" class="theme-toggle" aria-label="Toggle dark mode" title="Toggle theme">
-                    <span class="text-sm">Theme</span>
-                  </button>
-                </li>
             </ul>
+            
         </nav>
     </div>
 </header>
@@ -82,30 +77,75 @@
     <!-- Spacer -->
     <div class="section-spacer"></div>
     
-    <!-- Services Overview Section -->
-    <section id="services" class="py-16">
+    <!-- Services Overview Section - Accordion -->
+    <section id="services" class="py-8">
       <div class="container-modern">
         <div class="section-header">
           <h2 class="section-title">What do you want to do today?</h2>
           <p class="section-description">Services that drive business results</p>
         </div>
-        <div class="services-grid">
-          <a class="card-glass gradient-border service-card-modern" href="pages/services.html#ai-data-analytics">
-            <h3>AI Data Analytics</h3>
-            <div class="service-meta">Applications</div>
-          </a>
-          <a class="card-glass gradient-border service-card-modern" href="pages/services.html#it-modernization">
-            <h3>Manage IT complexity to enable innovation</h3>
-            <div class="service-meta">Data and AI</div>
-          </a>
-          <a class="card-glass gradient-border service-card-modern" href="pages/services.html#erp-transformation">
-            <h3>Elevate your enterprise with ERP transformation</h3>
-            <div class="service-meta">Cloud</div>
-          </a>
-          <a class="card-glass gradient-border service-card-modern" href="pages/services.html#cybersecurity">
-            <h3>Get ready for cybersecurity regulations</h3>
-            <div class="service-meta">Cyber Resilience</div>
-          </a>
+        <div class="services-accordion" id="home-services-accordion">
+          <!-- AI Data Analytics -->
+          <div class="accordion-item card-glass gradient-border" aria-expanded="false">
+            <button class="accordion-trigger" aria-controls="acc-ai" aria-expanded="false">
+              <span>
+                <strong>AI Data Analytics</strong>
+              </span>
+              <i class="chevron fas fa-chevron-down" aria-hidden="true"></i>
+            </button>
+            <div class="accordion-content" id="acc-ai">
+              <div class="accordion-subtitle">From AI Vision to Real-World Impact</div>
+              <p class="accordion-desc">Transform your AI ambitions into measurable results. We help you design and deploy adaptive, human-centric AI strategies built on your existing infrastructure, ready to scale, and aligned with Alchemy Logic's guiding principles. The result? Lasting value, greater agility, and AI that works for your business — not the other way around.</p>
+            </div>
+          </div>
+
+          <!-- IT Modernization -->
+          <div class="accordion-item card-glass gradient-border" aria-expanded="false">
+            <button class="accordion-trigger" aria-controls="acc-it" aria-expanded="false">
+              <span>
+                <strong>Manage IT complexity to enable innovation</strong>
+              </span>
+              <i class="chevron fas fa-chevron-down" aria-hidden="true"></i>
+            </button>
+            <div class="accordion-content" id="acc-it">
+              <div class="accordion-subtitle">Modernization That Delivers — Without the Disruption</div>
+              <p class="accordion-desc">Many organizations fall into the trap of the "big bang" transformation — trying to reinvent everything at once. While ambitious, this approach often slows down time-to-value. The complexity of evolving technology environments can hinder mission-critical initiatives before they even take off. At Alchemy Logic Consulting, we take a smarter path. As global experts in designing, modernizing, and operating mission-critical systems, we've seen firsthand that success stems from a pragmatic, continuous approach to modernization — one that delivers tangible results at every stage. We work with you to create a custom transformation roadmap tailored to your technology landscape and business priorities. Leveraging the power of Alchemy Logic Bridge, we help you modernize at the pace that's right for your organization, ensuring steady progress, reduced risk, and ongoing ROI.</p>
+            </div>
+          </div>
+
+          <!-- ERP Transformation -->
+          <div class="accordion-item card-glass gradient-border" aria-expanded="false">
+            <button class="accordion-trigger" aria-controls="acc-erp" aria-expanded="false">
+              <span>
+                <strong>Elevate your enterprise with ERP transformation</strong>
+              </span>
+              <i class="chevron fas fa-chevron-down" aria-hidden="true"></i>
+            </button>
+            <div class="accordion-content" id="acc-erp">
+              <div class="accordion-subtitle">Lead Your ERP Transformation with Confidence</div>
+              <p class="accordion-desc">Modern enterprises are reimagining their ERP landscapes — evolving into integrated, intelligent businesses that harness AI and core business data in powerful new ways. At Alchemy Logic Consulting, we offer comprehensive ERP transformation services, encompassing consulting, implementation, modernization, change management, and ongoing managed services. We partner with you to accelerate your journey to Cloud ERP, co-creating tailored solutions that meet your unique goals. We deliver ERP Custom Code and help you maximize value, reduce risk, and achieve measurable ROI on your transformation.</p>
+            </div>
+          </div>
+
+          <!-- Cybersecurity -->
+          <div class="accordion-item card-glass gradient-border" aria-expanded="false">
+            <button class="accordion-trigger" aria-controls="acc-cyber" aria-expanded="false">
+              <span>
+                <strong>Get ready for cybersecurity regulations</strong>
+              </span>
+              <i class="chevron fas fa-chevron-down" aria-hidden="true"></i>
+            </button>
+            <div class="accordion-content" id="acc-cyber">
+              <div class="accordion-subtitle">The New Era of Cyber Regulations</div>
+              <p class="accordion-desc">Around the world, governments are introducing more rigid cyber resilience rules — holding enterprises and their leaders accountable while pushing for greater investment in security and recovery measures. Many organizations now fall under these new regulations, making it essential to act promptly to ensure you can recover quickly from disruptions and remain compliant wherever you operate. At Alchemy Logic Consulting, we combine integrated cybersecurity and resiliency solutions with decades of experience in managing and modernizing the world's most mission-critical systems. We help you meet and exceed compliance requirements while safeguarding the systems your business depends on.</p>
+              <ol>
+                <li>Understand the regulations - Know which rules apply and how they impact your organization.</li>
+                <li>Identify gaps and build your roadmap - Assess your current ICT risk and resilience posture for the critical business services against new regulations to identify gaps.</li>
+                <li>Institutionalize compliance measures - Align with your corporate culture and develop formal policies, procedures, and standards.</li>
+                <li>Evaluate and adjust - Ensure accurate record-keeping and monitor compliance.</li>
+              </ol>
+            </div>
+          </div>
         </div>
       </div>
     </section>
@@ -122,7 +162,7 @@
                     <span class="logo-text">AlchemyLogic</span>
                 </div>
                 <p>Transforming business challenges into opportunities through strategic consulting solutions.</p>
-                <div class="social-links">
+                <div class="social-links footer-social">
                     <a href="#" aria-label="LinkedIn"><i class="fab fa-linkedin-in"></i></a>
                     <a href="#" aria-label="Twitter"><i class="fab fa-twitter"></i></a>
                     <a href="#" aria-label="Facebook"><i class="fab fa-facebook-f"></i></a>
