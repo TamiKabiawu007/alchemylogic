@@ -193,15 +193,13 @@ img, svg {
 }
 
 .btn-primary {
-  background-color: var(--color-accent);
-  color: var(--color-bg);
-  border-color: var(--color-accent);
+  background-color: transparent;
+  color: var(--color-text);
+  border: 1px solid var(--color-text);
 }
 
 .btn-primary:hover:not(:disabled) {
-  background-color: var(--color-accent);
-  border-color: var(--color-accent);
-  color: #3B82F6; /* text turns blue */
+  background-color: var(--color-hover-bg);
   transform: translateY(-2px);
   box-shadow: var(--shadow-md);
 }
@@ -1310,8 +1308,8 @@ img {
 }
 
 .btn-primary {
-  background-color: var(--color-primary);
-  color: var(--color-white);
+  background-color: var(--color-secondary); /* changed bc it's brihgter than the primary button color */
+  color: var(--color-white); 
 }
 .btn-primary:hover,
 .btn-primary:focus {
