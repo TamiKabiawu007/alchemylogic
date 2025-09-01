@@ -11,10 +11,11 @@ document.addEventListener('DOMContentLoaded', () => {
   const mainNav = document.querySelector('.main-nav');
   const backToTop = document.getElementById('back-to-top') || document.querySelector('.back-to-top');
   // Theme toggle removed (dark mode only)
-  const modal = document.getElementById('consultation-modal');
-  const openModalButtons = document.querySelectorAll('[data-modal="consultation"]');
-  const closeModalButtons = document.querySelectorAll('.close-modal, .close-modal-btn');
-  const form = document.getElementById('consultation-form');
+  // Removed consulting modal and form logic (no longer used)
+  const modal = null;
+  const openModalButtons = [];
+  const closeModalButtons = [];
+  const form = null;
 
   // Mobile Navigation Toggle
   if (menuToggle && mainNav) {
@@ -96,105 +97,7 @@ document.addEventListener('DOMContentLoaded', () => {
     });
   }
 
-  // Modal Functions
-  const openModal = (modalEl) => {
-    if (!modalEl) return;
-    modalEl.classList.add('open');
-    body.style.overflow = 'hidden';
-    document.addEventListener('keydown', handleEscape);
-  };
-
-  const closeModal = (modalEl) => {
-    if (!modalEl) return;
-    modalEl.classList.remove('open');
-    body.style.overflow = '';
-    document.removeEventListener('keydown', handleEscape);
-  };
-
-  const handleEscape = (e) => {
-    if (e.key === 'Escape') {
-      closeModal(modal);
-    }
-  };
-
-  // Open modal buttons
-  openModalButtons.forEach(button => {
-    button.addEventListener('click', (e) => {
-      e.preventDefault();
-      openModal(modal);
-    });
-  });
-
-  // Close modal buttons
-  closeModalButtons.forEach(button => {
-    button.addEventListener('click', (e) => {
-      e.preventDefault();
-      closeModal(modal);
-    });
-  });
-
-  // Close modal when clicking outside content
-  modal?.addEventListener('click', (e) => {
-    if (e.target === modal) {
-      closeModal(modal);
-    }
-  });
-
-  // Form submission
-  if (form) {
-    form.addEventListener('submit', async (e) => {
-      e.preventDefault();
-      
-      const formData = new FormData(form);
-      const submitBtn = form.querySelector('button[type="submit"]');
-      const originalBtnText = submitBtn.textContent;
-      
-      try {
-        // Show loading state
-        submitBtn.disabled = true;
-        submitBtn.textContent = 'Sending...';
-        
-        // Simulate form submission
-        await new Promise(resolve => setTimeout(resolve, 1500));
-        
-        // Show success message
-        const successMessage = document.createElement('div');
-        successMessage.className = 'form-success';
-        successMessage.innerHTML = `
-          <div class="success-icon">
-            <i class="fas fa-check-circle"></i>
-          </div>
-          <h3>Thank You!</h3>
-          <p>Your consultation request has been received. We'll contact you within 24 hours.</p>
-          <button class="btn btn-primary" id="close-success">Close</button>
-        `;
-        
-        form.style.display = 'none';
-        form.parentNode.insertBefore(successMessage, form);
-        
-        // Close modal after delay
-        setTimeout(() => {
-          closeModal(modal);
-          // Reset form after modal closes
-          setTimeout(() => {
-            form.reset();
-            form.style.display = '';
-            successMessage.remove();
-            submitBtn.disabled = false;
-            submitBtn.textContent = originalBtnText;
-          }, 300);
-        }, 2000);
-        
-      } catch (error) {
-        console.error('Form submission error:', error);
-        submitBtn.textContent = 'Error - Try Again';
-        setTimeout(() => {
-          submitBtn.textContent = originalBtnText;
-          submitBtn.disabled = false;
-        }, 2000);
-      }
-    });
-  }
+  // Modal and consulting form code removed
 
   // Smooth scrolling for anchor links
   document.querySelectorAll('a[href^="#"]').forEach(anchor => {

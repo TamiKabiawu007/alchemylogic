@@ -14,15 +14,15 @@
   --color-success: #10B981; /* Emerald 500 */
   --color-bg: #0B1220; /* Slate 950 */
   --color-surface: #0F172A; /* Slate 900 */
-  --color-text: #E2E8F0; /* Slate 200 */
-  --color-text-light: #94A3B8; /* Slate 400 */
+  --color-text: #FFFFFF; /* Updated for stronger contrast */
+  --color-text-light: #E5E7EB; /* Updated for readability */
   --color-border: #1F2937; /* Slate 800 */
   --color-hover-bg: #111827; /* Slate 900 */
   --color-white: #FFFFFF;
   --color-black: #0B1220;
   --color-dark: #0F172A;
   --color-light: #E2E8F0;
-  --color-medium: #94A3B8;
+  --color-medium: #E5E7EB; /* Lightened for readability */
   /* Updated secondary accent (replaces old gold) */
   --color-gold: #22D3EE; /* Cyan 400 */
   --color-gold-hover: #06B6D4; /* Cyan 500 */
@@ -72,6 +72,11 @@ body {
   color: var(--color-text);
   background-color: var(--color-bg);
   overflow-x: hidden;
+}
+
+/* Lock scroll when mobile nav is open */
+.nav-open {
+  overflow: hidden;
 }
 
 h1, h2, h3, h4, h5, h6 {
@@ -154,6 +159,27 @@ img, svg {
   height: 4px;
   background: var(--gradient-accent);
   margin: 1rem auto 0;
+}
+
+/* Subsection headers (Services page subsections) */
+.service-subsection-header {
+  color: var(--color-white);
+  font-weight: 700;
+  font-size: clamp(1.5rem, 3vw, 2rem);
+  position: relative;
+  padding-bottom: 0.4rem;
+  margin-top: 1.25rem;
+}
+.service-subsection-header::after {
+  content: '';
+  position: absolute;
+  left: 50%;
+  transform: translateX(-50%);
+  bottom: 0;
+  width: 56px;
+  height: 2px;
+  background-color: #3B82F6;
+  border-radius: 1px;
 }
 
 .text-center {
@@ -657,7 +683,7 @@ img, svg {
 /* Footer */
 .site-footer {
   background-color: #111827;
-  color: #9CA3AF;
+  color: var(--color-text-light);
   padding: 4rem 0 2rem;
 }
 
@@ -682,7 +708,7 @@ img, svg {
 
 .footer-about p {
   margin-bottom: 1.5rem;
-  color: #9CA3AF;
+  color: var(--color-text-light);
 }
 
 .social-links {
@@ -698,7 +724,7 @@ img, svg {
   height: 40px;
   border-radius: 50%;
   background-color: rgba(255, 255, 255, 0.05);
-  color: #9CA3AF;
+  color: var(--color-text-light);
   transition: var(--transition);
 }
 
@@ -735,7 +761,7 @@ img, svg {
 }
 
 .footer-links a {
-  color: #9CA3AF;
+  color: var(--color-text-light);
   text-decoration: none;
   transition: var(--transition);
   display: inline-block;
@@ -763,7 +789,7 @@ img, svg {
 }
 
 .contact-info a {
-  color: #9CA3AF;
+  color: var(--color-text-light);
   text-decoration: none;
   transition: var(--transition);
 }
@@ -943,22 +969,15 @@ textarea.form-control {
     display: block;
   }
   
+  /* Ensure nav container stays in viewport; dropdown menu handled below */
   .main-nav {
-    position: fixed;
-    top: 0;
-    right: -300px;
-    width: 300px;
-    height: 100vh;
-    background-color: white;
-    box-shadow: -5px 0 15px rgba(0, 0, 0, 0.1);
-    transition: var(--transition);
-    z-index: 1000;
-    padding: 6rem 2rem 2rem;
-    overflow-y: auto;
-  }
-  
-  .main-nav.open {
-    right: 0;
+    position: relative;
+    right: auto;
+    width: auto;
+    height: auto;
+    background: transparent;
+    box-shadow: none;
+    padding: 0;
   }
   
   .nav-list {
@@ -1072,6 +1091,11 @@ textarea.form-control {
   
   .form-actions .btn {
     width: 100%;
+  }
+  /* Further reduce brand text size on very small screens */
+  .logo-text {
+    font-size: 1.05rem;
+    max-width: 65vw;
   }
 }
 
@@ -1410,21 +1434,31 @@ img {
 @media (max-width: 768px) {
   .main-nav .nav-list {
     position: absolute;
-    top: 100%;
+    top: calc(100% + 8px);
     right: 0;
+    left: auto;
     flex-direction: column;
     background-color: var(--color-white);
-    padding: 1rem 2rem;
-    box-shadow: 0 4px 12px rgba(0,0,0,0.1);
-    max-height: 0;
-    overflow: hidden;
-    transition: max-height var(--transition-med);
+    border: 1px solid var(--color-border);
+    border-radius: 8px;
+    padding: 1rem 1.25rem;
+    box-shadow: var(--shadow-md);
+    display: none;
   }
   .main-nav.open .nav-list {
-    max-height: 400px;
+    display: flex;
   }
   .menu-toggle {
     display: flex;
+  }
+  /* Prevent long brand text from wrapping and reduce size on mobile */
+  .logo-text {
+    font-size: 1.2rem;
+    white-space: nowrap;
+    line-height: 1.1;
+    max-width: 70vw;
+    overflow: hidden;
+    text-overflow: ellipsis;
   }
 }
 
