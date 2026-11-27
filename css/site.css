@@ -250,9 +250,10 @@ strong { color: var(--heading); font-weight: 600; }
   -webkit-mask-image: radial-gradient(ellipse 70% 60% at 50% 0%, #000 30%, transparent 75%);
   mask-image: radial-gradient(ellipse 70% 60% at 50% 0%, #000 30%, transparent 75%);
 }
-.glow { position: absolute; border-radius: 50%; filter: blur(90px); opacity: 0.55; }
-.glow--blue { width: 520px; height: 520px; top: -220px; left: 8%; background: rgba(59, 130, 246, 0.55); }
-.glow--green { width: 440px; height: 440px; top: -120px; right: 4%; background: rgba(16, 185, 129, 0.4); }
+/* Soft glows drawn with gradients (much cheaper for phones to paint than a large blur filter) */
+.glow { position: absolute; border-radius: 50%; opacity: 0.55; }
+.glow--blue { width: 760px; height: 760px; top: -340px; left: calc(8% - 120px); background: radial-gradient(closest-side, rgba(59, 130, 246, 0.85), rgba(59, 130, 246, 0.35) 50%, transparent); }
+.glow--green { width: 660px; height: 660px; top: -230px; right: calc(4% - 110px); background: radial-gradient(closest-side, rgba(16, 185, 129, 0.7), rgba(16, 185, 129, 0.25) 50%, transparent); }
 
 .hero-inner { display: grid; justify-items: center; text-align: center; gap: 1.75rem; }
 .hero h1 { max-width: 18ch; }
@@ -265,9 +266,7 @@ strong { color: var(--heading); font-weight: 600; }
   margin-top: clamp(3.5rem, 7vw, 5rem);
   border: 1px solid var(--border);
   border-radius: var(--radius-lg);
-  background: rgba(10, 16, 29, 0.6);
-  -webkit-backdrop-filter: blur(8px);
-  backdrop-filter: blur(8px);
+  background: rgba(10, 16, 29, 0.72);
   overflow: hidden;
 }
 .stat { padding: 1.75rem 1.5rem; text-align: center; }
@@ -284,8 +283,8 @@ strong { color: var(--heading); font-weight: 600; }
   isolation: isolate;
   border-bottom: 1px solid var(--border);
 }
-.page-hero .glow--blue { width: 420px; height: 420px; top: -240px; left: -60px; }
-.page-hero .glow--green { width: 360px; height: 360px; top: -200px; right: -40px; opacity: 0.4; }
+.page-hero .glow--blue { width: 640px; height: 640px; top: -350px; left: -170px; }
+.page-hero .glow--green { width: 560px; height: 560px; top: -300px; right: -140px; opacity: 0.4; }
 .page-hero-inner { display: grid; gap: 1.25rem; text-align: center; justify-items: center; }
 .page-hero-inner > * { max-width: 820px; }
 .page-hero-inner > .eyebrow { justify-self: start; }
@@ -488,11 +487,17 @@ a.card:hover { border-color: rgba(96, 165, 250, 0.4); transform: translateY(-3px
 .js .reveal { opacity: 0; transform: translateY(18px); transition: opacity 0.8s var(--ease), transform 0.8s var(--ease); }
 .js .reveal.is-visible { opacity: 1; transform: none; }
 /* Content at the top of the page animates on load, not on scroll */
-.js .hero .reveal, .js .page-hero .reveal { opacity: 1; transform: none; transition: none; animation: fade-up 0.9s var(--ease) both; }
+.hero .reveal, .page-hero .reveal { opacity: 1; transform: none; transition: none; animation: fade-up 0.7s var(--ease) both; }
 .hero-inner > :nth-child(2), .page-hero-inner > :nth-child(2) { animation-delay: 0.08s; }
 .hero-inner > :nth-child(3), .page-hero-inner > :nth-child(3) { animation-delay: 0.16s; }
 .hero .stats { animation-delay: 0.24s; }
 @keyframes fade-up { from { opacity: 0; transform: translateY(18px); } to { opacity: 1; transform: none; } }
+
+/* Phones and tablets: no entrance or scroll fade-ins, so each page is there the moment it opens */
+@media (max-width: 820px) {
+  .hero .reveal, .page-hero .reveal { animation: none; }
+  .js .reveal { opacity: 1; transform: none; }
+}
 
 @media (prefers-reduced-motion: reduce) {
   @view-transition { navigation: none; }

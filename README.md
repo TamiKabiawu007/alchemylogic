@@ -38,6 +38,8 @@ python3 -m http.server 4173
 
 Then open http://localhost:4173. Pushing to `main` deploys to Vercel (alchemy-logic.com).
 
+CSS and JS are cached by browsers for a year (see `vercel.json`), so **bump the `?v=` number on `site.css` and `main.js` in every page** whenever you change either file.
+
 ## 🎨 Design System
 
 - Background: `#05080F` · Blue: `#3B82F6` · Green: `#10B981`
