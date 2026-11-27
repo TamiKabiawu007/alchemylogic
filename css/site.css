@@ -559,10 +559,12 @@ a.card:hover { border-color: rgba(96, 165, 250, 0.4); transform: translateY(-3px
     overflow-y: auto;
     opacity: 0;
     visibility: hidden;
-    transform: translateY(-8px);
-    transition: opacity 0.25s var(--ease), transform 0.25s var(--ease), visibility 0.25s;
+    transition: opacity 0.15s ease, visibility 0.15s;
   }
-  .is-open .nav-links { opacity: 1; visibility: visible; transform: none; }
+  .is-open .nav-links { opacity: 1; visibility: visible; }
+  /* Open menu: the header turns the same solid black as the panel at once, so they read as one surface */
+  .site-header { transition: none; }
+  .site-header.is-open { background: var(--bg); -webkit-backdrop-filter: none; backdrop-filter: none; }
   .nav-links li { display: block; }
   .nav-links li + li { border-top: 1px solid var(--border); }
   .nav-links a {
