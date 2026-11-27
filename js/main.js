@@ -1,177 +1,126 @@
-/**
- * AlchemyLogic Consulting - Main JavaScript
- * Modern, clean JavaScript for the AlchemyLogic website
- */
+// Alchemy Logic Consulting: site behaviour
+document.documentElement.classList.add('js');
 
 document.addEventListener('DOMContentLoaded', () => {
-  // DOM Elements
-  const body = document.body;
   const header = document.querySelector('.site-header');
-  const menuToggle = document.querySelector('.menu-toggle');
-  const mainNav = document.querySelector('.main-nav');
-  const backToTop = document.getElementById('back-to-top') || document.querySelector('.back-to-top');
-  // Theme toggle removed (dark mode only)
-  // Removed consulting modal and form logic (no longer used)
-  const modal = null;
-  const openModalButtons = [];
-  const closeModalButtons = [];
-  const form = null;
+  const toggle = document.querySelector('.menu-toggle');
 
-  // Mobile Navigation Toggle
-  if (menuToggle && mainNav) {
-    menuToggle.addEventListener('click', () => {
-      const isExpanded = menuToggle.getAttribute('aria-expanded') === 'true';
-      menuToggle.setAttribute('aria-expanded', !isExpanded);
-      mainNav.classList.toggle('open');
-      body.classList.toggle('nav-open', !isExpanded);
-    });
-  }
+  // Header background once the page scrolls
+  const onScroll = () => header.classList.toggle('is-scrolled', window.scrollY > 8);
+  onScroll();
+  window.addEventListener('scroll', onScroll, { passive: true });
 
-  // Close mobile menu when clicking on a nav link
-  document.querySelectorAll('.nav-link').forEach(link => {
-    link.addEventListener('click', () => {
-      if (mainNav.classList.contains('open')) {
-        mainNav.classList.remove('open');
-        menuToggle.setAttribute('aria-expanded', 'false');
-        body.classList.remove('nav-open');
-      }
-    });
-  });
-
-  // Sticky Header
-  let lastScroll = 0;
-  const headerHeight = header.offsetHeight;
-  
-  const handleScroll = () => {
-    const currentScroll = window.pageYOffset;
-    
-    // Add shadow when scrolled
-    if (currentScroll > 10) {
-      header.classList.add('scrolled');
-    } else {
-      header.classList.remove('scrolled');
-    }
-    
-    // Hide/show header on scroll
-    if (currentScroll <= 0) {
-      header.classList.remove('scroll-up');
-      return;
-    }
-    
-    if (currentScroll > lastScroll && !header.classList.contains('scroll-down')) {
-      // Scroll Down
-      header.classList.remove('scroll-up');
-      header.classList.add('scroll-down');
-    } else if (currentScroll < lastScroll && header.classList.contains('scroll-down')) {
-      // Scroll Up
-      header.classList.remove('scroll-down');
-      header.classList.add('scroll-up');
-    }
-    
-    lastScroll = currentScroll;
+  // Mobile menu
+  const isOpen = () => header.classList.contains('is-open');
+  const setMenu = (open) => {
+    header.classList.toggle('is-open', open);
+    toggle.setAttribute('aria-expanded', String(open));
+    document.body.style.overflow = open ? 'hidden' : '';
   };
-  
-  window.addEventListener('scroll', handleScroll, { passive: true });
-
-  // Force dark mode root attributes for consistency
-  document.documentElement.removeAttribute('data-theme');
-
-  // Back to Top Button
-  if (backToTop) {
-    const toggleBackToTop = () => {
-      if (window.scrollY > 300) {
-        backToTop.classList.add('visible');
-      } else {
-        backToTop.classList.remove('visible');
-      }
-    };
-    
-    window.addEventListener('scroll', toggleBackToTop, { passive: true });
-    
-    backToTop.addEventListener('click', (e) => {
-      e.preventDefault();
-      window.scrollTo({
-        top: 0,
-        behavior: 'smooth'
-      });
-    });
+  if (toggle) {
+    toggle.addEventListener('click', () => setMenu(!isOpen()));
+    document.querySelectorAll('.nav-links a').forEach((a) => a.addEventListener('click', () => setMenu(false)));
+    document.addEventListener('keydown', (e) => { if (e.key === 'Escape' && isOpen()) { setMenu(false); toggle.focus(); } });
+    window.matchMedia('(min-width: 821px)').addEventListener('change', (e) => { if (e.matches) setMenu(false); });
   }
 
-  // Modal and consulting form code removed
-
-  // Smooth scrolling for anchor links
-  document.querySelectorAll('a[href^="#"]').forEach(anchor => {
-    anchor.addEventListener('click', function(e) {
-      const targetId = this.getAttribute('href');
-      if (targetId === '#' || !document.querySelector(targetId)) return;
-      
-      e.preventDefault();
-      
-      const targetElement = document.querySelector(targetId);
-      const headerOffset = header.offsetHeight;
-      const elementPosition = targetElement.getBoundingClientRect().top;
-      const offsetPosition = elementPosition + window.pageYOffset - headerOffset - 20;
-      
-      window.scrollTo({
-        top: offsetPosition,
-        behavior: 'smooth'
+  // Reveal on scroll
+  const revealEls = document.querySelectorAll('.reveal');
+  if ('IntersectionObserver' in window) {
+    const io = new IntersectionObserver((entries) => {
+      entries.forEach((entry) => {
+        if (!entry.isIntersecting) return;
+        entry.target.classList.add('is-visible');
+        io.unobserve(entry.target);
       });
-      
-      // Update URL without jumping
-      if (history.pushState) {
-        history.pushState(null, null, targetId);
-      } else {
-        location.hash = targetId;
-      }
-    });
-  });
+    }, { threshold: 0.12, rootMargin: '0px 0px -40px 0px' });
+    revealEls.forEach((el) => io.observe(el));
+  } else {
+    revealEls.forEach((el) => el.classList.add('is-visible'));
+  }
 
-  // Intersection Observer for scroll animations
-  const animateOnScroll = () => {
-    const elements = document.querySelectorAll('.animate-on-scroll');
-    if (!elements.length) return;
-    
-    const observer = new IntersectionObserver((entries) => {
-      entries.forEach(entry => {
-        if (entry.isIntersecting) {
-          const delay = entry.target.dataset.scrollDelay || 0;
-          
-          setTimeout(() => {
-            entry.target.classList.add('visible');
-            observer.unobserve(entry.target);
-          }, parseInt(delay));
+  // Services page: highlight the section in view
+  const tocLinks = document.querySelectorAll('.toc a');
+  if (tocLinks.length) {
+    const byId = new Map([...tocLinks].map((a) => [a.getAttribute('href').slice(1), a]));
+    const spy = new IntersectionObserver((entries) => {
+      entries.forEach((entry) => {
+        if (!entry.isIntersecting) return;
+        tocLinks.forEach((a) => a.classList.remove('is-active'));
+        const link = byId.get(entry.target.id);
+        if (!link) return;
+        link.classList.add('is-active');
+        // On phones the index is a horizontal chip row: keep the active chip in view
+        const bar = link.parentElement;
+        if (bar.scrollWidth > bar.clientWidth) {
+          bar.scrollTo({ left: link.offsetLeft - (bar.clientWidth - link.offsetWidth) / 2, behavior: 'smooth' });
         }
       });
-    }, {
-      threshold: 0.1,
-      rootMargin: '0px 0px -50px 0px'
-    });
-    
-    elements.forEach(element => {
-      observer.observe(element);
-    });
-  };
-  
-  // Initialize animations
-  animateOnScroll();
+    }, { rootMargin: '-35% 0px -60% 0px' });
+    byId.forEach((_, id) => { const el = document.getElementById(id); if (el) spy.observe(el); });
+  }
 
-  // Accordion logic (home services)
-  document.querySelectorAll('#home-services-accordion .accordion-item').forEach((item) => {
-    const trigger = item.querySelector('.accordion-trigger');
-    const content = item.querySelector('.accordion-content');
-    if (!trigger || !content) return;
-    trigger.addEventListener('click', () => {
-      const expanded = item.getAttribute('aria-expanded') === 'true';
-      // collapse all others (accordion behavior)
-      document.querySelectorAll('#home-services-accordion .accordion-item').forEach((el) => {
-        el.setAttribute('aria-expanded', 'false');
-        const t = el.querySelector('.accordion-trigger');
-        t?.setAttribute('aria-expanded', 'false');
-      });
-      if (!expanded) {
-        item.setAttribute('aria-expanded', 'true');
-        trigger.setAttribute('aria-expanded', 'true');
-      }
+  // Home service cards on phones: open the card sitting at the reading line (55% down the screen).
+  // Exactly one card is open at a time, so the list keeps the same height and the page doesn't jump.
+  // The choice is based on the list's top and the collapsed row height, never on the cards'
+  // current positions, so opening a card can't feed back into which card is open.
+  const serviceList = document.querySelector('.service-cards');
+  const serviceCards = serviceList ? [...serviceList.querySelectorAll('.card')] : [];
+  if (serviceCards.length) {
+    const phone = window.matchMedia('(max-width: 820px)');
+    let ticking = false;
+    let current = -1;
+    const pickActive = () => {
+      ticking = false;
+      if (!phone.matches) { serviceCards.forEach((c) => c.classList.remove('is-active')); current = -1; return; }
+      const closed = serviceCards.filter((c) => !c.classList.contains('is-active'));
+      const rowGap = parseFloat(getComputedStyle(serviceList).rowGap) || 0;
+      const pitch = Math.min(...closed.map((c) => c.offsetHeight)) + rowGap;
+      const progress = (window.innerHeight * 0.55 - serviceList.getBoundingClientRect().top) / pitch;
+      let next = Math.max(0, Math.min(serviceCards.length - 1, Math.floor(progress)));
+      // Small dead zone at each boundary so a card doesn't flicker when you stop right on it
+      if (current !== -1 && next !== current && Math.abs(progress - Math.max(next, current)) < 0.12) next = current;
+      if (next === current) return;
+      current = next;
+      serviceCards.forEach((c, i) => c.classList.toggle('is-active', i === next));
+    };
+    const queue = () => { if (!ticking) { ticking = true; requestAnimationFrame(pickActive); } };
+    window.addEventListener('scroll', queue, { passive: true });
+    window.addEventListener('resize', queue);
+    phone.addEventListener('change', queue);
+    pickActive();
+  }
+
+  // Services page on phones: "Read more" reveals the full write-up
+  document.querySelectorAll('.more-toggle').forEach((btn) => {
+    const block = btn.closest('.service-block');
+    const label = btn.querySelector('span');
+    btn.addEventListener('click', () => {
+      const open = !block.classList.contains('is-expanded');
+      block.classList.toggle('is-expanded', open);
+      btn.setAttribute('aria-expanded', String(open));
+      label.textContent = open ? 'Show less' : 'Read more';
     });
   });
+
+  // Contact page: copy email address
+  document.querySelectorAll('[data-copy]').forEach((btn) => {
+    const label = btn.querySelector('span');
+    if (!label) return;
+    const original = label.textContent;
+    let resetTimer;
+    btn.addEventListener('click', async () => {
+      try {
+        await navigator.clipboard.writeText(btn.dataset.copy);
+        label.textContent = 'Copied!';
+      } catch {
+        label.textContent = btn.dataset.copy; // clipboard blocked: show the address so it can be copied by hand
+      }
+      clearTimeout(resetTimer);
+      resetTimer = setTimeout(() => { label.textContent = original; }, 2000);
+    });
+  });
+
+  // Keep the copyright year current
+  document.querySelectorAll('[data-year]').forEach((el) => { el.textContent = new Date().getFullYear(); });
 });
