@@ -16,48 +16,32 @@ A modern, responsive website for AlchemyLogic, a strategic business consulting f
 - CSS3 (with Flexbox and Grid)
 - JavaScript (Vanilla JS)
 - [Font Awesome](https://fontawesome.com/) for icons
-- Google Fonts (Montserrat and Inter)
+- Google Fonts (Manrope and Inter)
 
 ## 📁 Project Structure
 
 ```
-alchemylogic-consulting/
-├── css/
-│   └── styles.css       # Main stylesheet
-├── js/
-│   └── main.js         # JavaScript functionality
-├── images/              # Image assets
-├── pages/               # Additional HTML pages
-│   ├── about.html
-│   ├── services.html
-│   └── contact.html
-└── index.html           # Homepage
+alchemylogic/
+├── css/site.css        # All styles (dark theme, blue + green accents)
+├── js/main.js          # Nav, mobile menu, scroll reveal, services page nav
+├── images/             # Favicon
+├── vercel.json         # Security headers for the Vercel deployment
+├── pages/              # services.html, about.html, contact.html
+└── index.html          # Homepage
 ```
 
-## 🚀 Getting Started
+## 🚀 Running locally
 
-1. Clone the repository:
-   ```bash
-   git clone https://github.com/TamiKabiawu007/alchemylogic.git
-   ```
+```bash
+python3 -m http.server 4173
+```
 
-2. Open `index.html` in your preferred web browser
+Then open http://localhost:4173. Pushing to `main` deploys to Vercel (alchemy-logic.com).
 
 ## 🎨 Design System
 
-### Colors
-- Primary: `#1A56DB` (Blue)
-- Accent: `#D4A017` (Gold)
-- Text: `#1A1A1A` (Dark Gray)
-- Background: `#FFFFFF` (White)
-
-### Typography
-- Headings: Montserrat
-- Body: Inter
-
-## 📝 License
-
-This project is licensed under the MIT License - see the [LICENSE](LICENSE) file for details.
+- Background: `#05080F` · Blue: `#3B82F6` · Green: `#10B981`
+- Headings: Manrope · Body: Inter
 
 ## 🙏 Acknowledgments
 
